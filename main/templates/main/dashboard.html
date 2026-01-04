@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h1>Dashboard</h1>
+    <p>Welcome back, <strong>{{ user.username }}</strong> 👋</p>
+
+    <div class="dashboard-grid">
+
+        <!-- Counseling -->
+        <div class="card">
+            <h3>🧠 Counseling</h3>
+            <p>Book or manage your counseling sessions.</p>
+            <a href="{% url 'counseling' %}">Book Session</a>
+        </div>
+
+        <!-- Stories -->
+        <div class="card">
+            <h3>📖 Stories</h3>
+            <p>Share or read community stories.</p>
+            <a href="{% url 'stories' %}">View Stories</a>
+        </div>
+
+        <!-- Shop -->
+        <div class="card">
+            <h3>👕 Nestlé Apparel</h3>
+            <p>Request subsidized essential items.</p>
+            <a href="{% url 'shop' %}">Browse Items</a>
+        </div>
+
+        <!-- Notifications -->
+        <div class="card">
+            <h3>🔔 Notifications</h3>
+            <p>No notifications yet.</p>
+            <a href="{% url 'dashboard' %}">View</a>
+        </div>
+
+        <!-- Staff Tools -->
+        {% if user.is_staff %}
+        <div class="card">
+            <h3>🧰 Staff Tools</h3>
+            <p>Review and update product request status.</p>
+            <a href="{% url 'staff_requests' %}">View Requests</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock %}

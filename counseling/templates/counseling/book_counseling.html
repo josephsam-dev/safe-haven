@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Book Counseling{% endblock %}
+
+{% block content %}
+<h2>Book Counseling Session</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Session Type</label><br>
+    <select name="session_type" required>
+        <option value="online">Online</option>
+        <option value="in_person">In Person</option>
+    </select><br><br>
+
+    <label>Preferred Date</label><br>
+    <input type="date" name="scheduled_date" required><br><br>
+
+    <label>Message</label><br>
+    <textarea name="message" rows="4" required></textarea><br><br>
+
+    <button type="submit">Book Session</button>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Safe Haven</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <div class="navbar">
+        <div><strong>Safe Haven</strong></div>
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

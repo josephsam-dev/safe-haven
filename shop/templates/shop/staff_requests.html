@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Staff – Product Requests{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Staff – Product Requests</h1>
+<p class="subtitle">Review and manage all product requests</p>
+
+<div class="card">
+  <table class="request-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Product</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.user.username }}</td>
+        <td>{{ r.product.name }}</td>
+
+        <td>
+          {% if r.status == 'pending' %}
+            <span class="badge pending">Pending</span>
+          {% elif r.status == 'approved' %}
+            <span class="badge approved">Approved</span>
+          {% else %}
+            <span class="badge delivered">Delivered</span>
+          {% endif %}
+        </td>
+
+        <td>
+          {% if r.status == 'pending' %}
+            <a class="btn approve"
+               href="{% url 'update_request_status' r.id 'approved' %}">
+              Approve
+            </a>
+          {% elif r.status == 'approved' %}
+            <a class="btn deliver"
+               href="{% url 'update_request_status' r.id 'delivered' %}">
+              Mark Delivered
+            </a>
+          {% else %}
+            ✔ Done
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

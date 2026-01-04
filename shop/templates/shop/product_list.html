@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Nestlé Apparel{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<h2>Available Essentials</h2>
+
+{% for product in products %}
+    <div style="margin-bottom: 20px;">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <small>{{ product.get_category_display }}</small><br>
+
+        <a href="{% url 'request_product' product.id %}">
+            Request Item
+        </a>
+    </div>
+{% empty %}
+    <p>No products available.</p>
+{% endfor %}
+
+{% endblock %}
