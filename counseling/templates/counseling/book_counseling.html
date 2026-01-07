@@ -1,25 +1,46 @@
-{% extends 'main/base.html' %}
-
-{% block title %}Book Counseling{% endblock %}
+{% extends "main/base.html" %}
 
 {% block content %}
-<h2>Book Counseling Session</h2>
+<div class="container">
 
-<form method="POST">
+  <h1>🧠 Book a Counseling Session</h1>
+
+  <p>
+    Please provide a few details below to request a counseling session.
+    All requests are handled with care and confidentiality.
+  </p>
+
+  <form method="post">
     {% csrf_token %}
 
     <label>Session Type</label><br>
     <select name="session_type" required>
-        <option value="online">Online</option>
-        <option value="in_person">In Person</option>
-    </select><br><br>
+      <option value="">Select a session type</option>
+      <option value="Emotional Support">Emotional Support</option>
+      <option value="Mental Health">Mental Health</option>
+      <option value="Life Guidance">Life Guidance</option>
+    </select>
+
+    <br><br>
 
     <label>Preferred Date</label><br>
-    <input type="date" name="scheduled_date" required><br><br>
+    <input type="date" name="scheduled_date" required>
 
-    <label>Message</label><br>
-    <textarea name="message" rows="4" required></textarea><br><br>
+    <br><br>
 
-    <button type="submit">Book Session</button>
-</form>
+    <label>Message (optional)</label><br>
+    <textarea name="message" rows="4" placeholder="Briefly describe your concern..."></textarea>
+
+    <br><br>
+
+    <button class="btn" type="submit">
+      Submit Request
+    </button>
+  </form>
+
+  <p class="muted">
+    A counselor or staff member will review your request and get back to you.
+  </p>
+
+</div>
 {% endblock %}

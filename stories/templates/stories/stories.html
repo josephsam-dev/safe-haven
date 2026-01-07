@@ -1,0 +1,59 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <h2>📖 Community Stories</h2>
+  <p class="muted">
+    A safe space for sharing experiences, finding understanding,
+    and supporting one another.
+  </p>
+
+  {# CLIENT ACTION #}
+  {% if not user.is_staff %}
+    <a class="btn" href="{% url 'add_story' %}">
+      Share Your Story
+    </a>
+  {% else %}
+    <p class="muted">
+      You are viewing stories as a staff member.
+    </p>
+  {% endif %}
+
+  <hr>
+
+  {% for story in stories %}
+    <div class="card" style="margin-bottom: 20px;">
+
+      <h3>{{ story.title }}</h3>
+      <p>{{ story.content }}</p>
+
+      <small class="muted">
+        {% if story.is_anonymous %}
+          Anonymous
+        {% else %}
+          By {{ story.user.username }}
+        {% endif %}
+      </small>
+
+      {# STAFF-ONLY ACTION #}
+      {% if user.is_staff %}
+        <form
+          method="post"
+          action="{% url 'offer_support' story.id %}"
+          style="margin-top: 10px;"
+        >
+          {% csrf_token %}
+          <button class="btn btn-secondary">
+            🤍 Offer Support
+          </button>
+        </form>
+      {% endif %}
+
+    </div>
+  {% empty %}
+    <p>No stories have been shared yet.</p>
+  {% endfor %}
+
+</div>
+{% endblock %}

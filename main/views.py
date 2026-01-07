@@ -1,36 +1,46 @@
+from django.db.models import Count
+from counseling.models import CounselingSession
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-# Home page
+
 def home(request):
     return render(request, "main/home.html")
 
 
-# Dashboard
 @login_required
 def dashboard(request):
-    return render(request, "main/dashboard.html")
+    user = request.user
+
+    session_summary = (
+        CounselingSession.objects
+        .filter(user=user)
+        .values("status")
+        .annotate(count=Count("id"))
+    )
+
+    status_counts = {
+        "pending": 0,
+        "confirmed": 0,
+        "completed": 0,
+    }
+
+    for item in session_summary:
+        status_counts[item["status"]] = item["count"]
+
+    context = {
+        "status_counts": status_counts,
+    }
+
+    return render(request, "main/dashboard.html", context)
 
 
-# Counseling page
-@login_required
-def counseling(request):
-    return render(request, "main/counseling.html")
-
-
-# Stories page
-@login_required
-def stories(request):
-    return render(request, "main/stories.html")
-
-
-# Shop page
 @login_required
 def shop(request):
     return render(request, "main/shop.html")
 
 
-# Staff requests page
 @login_required
 def staff_requests(request):
     return render(request, "main/staff_requests.html")

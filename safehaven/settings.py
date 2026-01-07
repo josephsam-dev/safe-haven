@@ -28,11 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Local apps
     'main',
-    'shop',
-    'stories',
-    'counseling',
     'accounts',
+    'counseling',
+    'stories',
+    'shop',
+    'notifications',
 ]
 
 # -------------------------------------------------

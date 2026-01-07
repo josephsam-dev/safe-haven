@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>🔔 Notifications</h2>
+
+  {% for note in notifications %}
+    <div class="card">
+      <p>{{ note.message }}</p>
+
+      <a class="btn" href="{% url 'book_counseling' %}">
+  Book a Counseling Session
+</a>
+
+        Book a Counseling Session
+      </a>
+    </div>
+  {% empty %}
+    <p>No notifications yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

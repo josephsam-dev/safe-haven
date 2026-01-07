@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import story_list, add_story, offer_support
 
 urlpatterns = [
-    path('', views.story_list, name='story_list'),
-    path('add/', views.add_story, name='add_story'),
+    path("", story_list, name="stories"),
+    path("add/", add_story, name="add_story"),
+    path("offer-support/<int:story_id>/", offer_support, name="offer_support"),
 ]
