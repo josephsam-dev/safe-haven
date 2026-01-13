@@ -144,3 +144,7 @@ def staff_requests(request):
     }
 
     return render(request, 'shop/staff_requests.html', context)
+from django.shortcuts import render
+
+def about(request):
+    return render(request, "shop/about.html")

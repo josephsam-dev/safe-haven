@@ -1,68 +1,117 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container">
 
-  <h1>Dashboard</h1>
-  <p>Welcome back, <strong>{{ user.username }}</strong> 👋</p>
+<style>
+/* ===== DASHBOARD STATS (LOCAL & GUARANTEED) ===== */
+.dashboard-stats {
+  max-width: 900px;
+  margin: 2rem auto 3rem;
+}
 
-  <div class="dashboard-grid">
+.dashboard-stats .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
 
-    {% if not user.is_staff %}
-      <!-- Counseling -->
+.dashboard-stats .stat-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.dashboard-stats .stat-card h3 {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.dashboard-stats .stat-card p {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dashboard-stats .pending { border-left: 5px solid #f59e0b; }
+.dashboard-stats .confirmed { border-left: 5px solid #2563eb; }
+.dashboard-stats .completed { border-left: 5px solid #16a34a; }
+.dashboard-stats .staff { border-left: 5px solid #7c3aed; }
+</style>
+
+<section class="page">
+  <div class="page-container">
+
+    <h1 class="page-title">Dashboard</h1>
+
+    <p class="welcome-text">
+      Welcome back, <strong>{{ user.username }}</strong> 👋
+    </p>
+
+    <!-- STATUS SUMMARY -->
+    <div class="dashboard-stats">
+      <div class="stats-grid">
+
+        <div class="stat-card pending">
+          <h3>Pending</h3>
+          <p>{{ status_counts.pending }}</p>
+        </div>
+
+        <div class="stat-card confirmed">
+          <h3>Confirmed</h3>
+          <p>{{ status_counts.confirmed }}</p>
+        </div>
+
+        <div class="stat-card completed">
+          <h3>Completed</h3>
+          <p>{{ status_counts.completed }}</p>
+        </div>
+
+        {% if user.is_staff %}
+        <div class="stat-card staff">
+          <h3>Pending Requests</h3>
+          <p>{{ pending_total }}</p>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- ACTION CARDS -->
+    <div class="dashboard-grid">
+
       <div class="card">
         <h3>🧠 Counseling</h3>
         <p>Book or manage your counseling sessions.</p>
-
-        <a class="btn" href="{% url 'book_counseling' %}">
-          Book Session
-        </a>
-
-        <a class="btn btn-secondary" href="{% url 'my_sessions' %}">
-          View My Sessions
-        </a>
+        <a href="/counseling/book/" class="btn">Book Session</a>
+        <a href="/counseling/my-sessions/" class="link">View My Sessions</a>
       </div>
 
-      <!-- Stories -->
       <div class="card">
         <h3>📖 Stories</h3>
         <p>Share or read community stories.</p>
-        <a class="btn" href="{% url 'stories' %}">
-          Explore Stories
-        </a>
+        <a href="/stories/" class="btn">Explore Stories</a>
       </div>
 
-      <!-- Shop -->
       <div class="card">
-        <h3>👕 Essentials Shop</h3>
+        <h3>🛒 Essentials Shop</h3>
         <p>Request subsidized essential items.</p>
-        <a class="btn" href="{% url 'shop' %}">
-          Request Items
-        </a>
+        <a href="/shop/" class="btn">Request Items</a>
       </div>
 
-      <!-- Notifications -->
       <div class="card">
         <h3>🔔 Notifications</h3>
         <p>You’ll see updates about your requests here.</p>
-        <a class="btn" href="{% url 'notifications' %}">
-          View Notifications
-        </a>
+        <a href="/notifications/" class="btn">View Notifications</a>
       </div>
-    {% endif %}
 
-    {% if user.is_staff %}
-      <!-- Staff Tools -->
-      <div class="card">
-        <h3>🧰 Staff Tools</h3>
-        <p>Review and update user requests.</p>
-        <a class="btn" href="{% url 'staff_requests' %}">
-          Manage Requests
-        </a>
-      </div>
-    {% endif %}
+    </div>
 
   </div>
+</section>
 
-</div>
 {% endblock %}

@@ -1,7 +1,24 @@
 {% extends "main/base.html" %}
+{% load static %}
+
 {% block content %}
-<div class="container">
-    <h1>Shop</h1>
-    <p>This is the shop page.</p>
-</div>
+
+<section class="hero-about">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1>About Safe Haven</h1>
+        <p>
+            Safe Haven provides access to counseling support,
+            essential resources, and a trusted community for
+            people navigating difficult moments.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Our Mission</a>
+            <a href="#" class="btn btn-outline">Get Support</a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

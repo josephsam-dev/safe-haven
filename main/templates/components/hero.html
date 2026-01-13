@@ -1,0 +1,20 @@
+<section class="hero">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+
+    {% if primary_btn %}
+      <a href="{{ primary_link }}" class="btn btn-primary">
+        {{ primary_btn }}
+      </a>
+    {% endif %}
+
+    {% if secondary_btn %}
+      <a href="{{ secondary_link }}" class="btn btn-secondary">
+        {{ secondary_btn }}
+      </a>
+    {% endif %}
+  </div>
+</section>

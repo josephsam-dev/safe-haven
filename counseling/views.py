@@ -45,3 +45,18 @@ def my_sessions(request):
     return render(request, 'counseling/my_sessions.html', {
         'sessions': sessions
     })
+from django.shortcuts import render
+
+def session_list(request):
+    return render(request, "counseling/session_list.html")
+from django.shortcuts import render
+from .models import CounselingSession
+
+def session_list(request):
+    return render(request, "counseling/session_list.html")
+
+def my_sessions(request):
+    sessions = CounselingSession.objects.filter(user=request.user)
+    return render(request, "counseling/my_sessions.html", {
+        "sessions": sessions
+    })

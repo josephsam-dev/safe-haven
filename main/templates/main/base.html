@@ -5,39 +5,155 @@
     <meta charset="UTF-8">
     <title>Safe Haven</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- AOS Animation CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        :root {
+            --bg: #f6f7fb;
+            --card-bg: #ffffff;
+            --text: #222;
+            --muted: #666;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar nav a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .navbar nav a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn,
+        .theme-toggle {
+            margin-left: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            color: var(--text);
+        }
+
+        .theme-toggle {
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <div>
-            <strong>Safe Haven</strong>
-        </div>
+<header class="navbar">
+    <div class="logo">
+        <strong>Safe Haven</strong>
+    </div>
 
-        <div>
-            <a href="{% url 'home' %}">Home</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stories/">Stories</a>
+        <a href="/shop/">Shop</a>
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}">Dashboard</a>
-                <a href="{% url 'stories' %}">Stories</a>
-                <a href="{% url 'shop' %}">Shop</a>
+        {% if user.is_authenticated %}
+            <a href="/dashboard/">Dashboard</a>
 
-                {% if user.is_staff %}
-                    <a href="{% url 'admin:index' %}">Admin</a>
-                {% endif %}
-
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
+            {% if user.is_staff %}
+                <a href="/admin/">Admin</a>
             {% endif %}
-        </div>
-    </div>
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+            <!-- Dark mode toggle -->
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- AOS Animation JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    easing: "ease-out-cubic",
+    once: true
+  });
+</script>
+
+<!-- Dark mode script -->
+<script>
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark");
+        if (toggle) toggle.textContent = "☀️";
+    }
+
+    if (toggle) {
+        toggle.addEventListener("click", () => {
+            body.classList.toggle("dark");
+
+            if (body.classList.contains("dark")) {
+                localStorage.setItem("theme", "dark");
+                toggle.textContent = "☀️";
+            } else {
+                localStorage.setItem("theme", "light");
+                toggle.textContent = "🌙";
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

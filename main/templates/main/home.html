@@ -1,12 +1,30 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block content %}
-<h1>Welcome to Safe Haven</h1>
-<p>If you can see this, templates are working.</p>
+<section class="hero">
+    <img src="{% static 'images/hero.jpg' %}" class="hero-img" alt="Hero">
 
-{% if user.is_authenticated %}
-    <a href="{% url 'dashboard' %}">Go to Dashboard</a>
-{% else %}
-    <a href="{% url 'login' %}">Login</a>
-{% endif %}
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1>About Safe Haven</h1>
+        <p>
+            Safe Haven provides access to counseling support,
+            essential resources, and a trusted community.
+        </p>
+
+        <div class="hero-buttons">
+            <!-- ✅ LINKED TO MISSION PAGE -->
+            <a href="{% url 'mission' %}" class="btn btn-primary">
+                Our Mission
+            </a>
+
+            <!-- 🔜 CAN BE WIRED LATER -->
+            <a href="#" class="btn btn-outline">
+                Get Support
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}

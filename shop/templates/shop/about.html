@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+    <img src="{% static 'images/about-hero.jpg' %}" alt="About Safe Haven" class="hero-img">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1>About Safe Haven</h1>
+        <p>
+            Safe Haven provides access to counseling support,
+            essential resources, and a trusted community
+            for people navigating difficult moments.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">Our Mission</a>
+            <a href="#" class="btn-outline">Get Support</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
