@@ -1,23 +1,54 @@
-{% load static %}
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block content %}
 
+<!-- =========================
+     HERO SECTION
+========================= -->
 <section class="hero">
-  <img src="{% static 'images/about-hero.jpg' %}" alt="About Safe Haven" class="hero-bg">
 
+  <!-- SLIDER -->
+  <div class="hero-slider">
+    <div class="hero-slides">
+      <div class="slide" style="background-image: url('{% static 'images/hero-1.jpg' %}');"></div>
+      <div class="slide" style="background-image: url('{% static 'images/hero-2.jpg' %}');"></div>
+      <div class="slide" style="background-image: url('{% static 'images/hero-3.jpg' %}');"></div>
+    </div>
+  </div>
+
+  <!-- OVERLAY -->
   <div class="hero-overlay"></div>
 
+  <!-- CONTENT -->
   <div class="hero-content">
-    <h1>ABOUT SAFE HAVEN</h1>
+    <h1>About Safe Haven</h1>
     <p>
-      Safe Haven provides access to counseling support, essential resources,
-      and a trusted community for people navigating difficult moments.
+      Safe Haven provides access to counseling support and a safe space
+      for individuals going through difficult times.
     </p>
 
     <div class="hero-buttons">
-      <a href="#" class="btn btn-primary">Our Mission</a>
-      <a href="#" class="btn btn-outline">Get Support</a>
+      <a href="{% url 'mission' %}" class="btn btn-primary">Our Mission</a>
+      <a href="{% url 'register' %}" class="btn btn-outline">Get Support</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- =========================
+     CTA SECTION
+========================= -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Need Support?</h2>
+    <p>
+      If you’re going through a difficult time, you don’t have to face it alone.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+      <a href="{% url 'contact' %}" class="btn btn-outline">Contact Us</a>
     </div>
   </div>
 </section>

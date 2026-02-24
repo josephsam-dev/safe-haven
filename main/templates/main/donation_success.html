@@ -1,0 +1,63 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<div style="
+display:flex;
+justify-content:center;
+align-items:center;
+height:70vh;
+">
+
+<div style="
+background:white;
+padding:50px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+text-align:center;
+max-width:500px;
+width:100%;
+">
+
+<h1 style="
+font-size:32px;
+margin-bottom:15px;
+color:#222;
+">
+Thank You {{ name }}
+</h1>
+
+<p style="
+font-size:18px;
+margin-bottom:10px;
+color:#555;
+">
+Your donation of <strong>₦{{ amount }}</strong> was received successfully.
+</p>
+
+<p style="
+color:#777;
+margin-bottom:30px;
+">
+We truly appreciate your support.  
+Our team will contact you shortly.
+</p>
+
+<a href="/"
+style="
+background:#f4b400;
+color:black;
+padding:12px 30px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+">
+Return Home
+</a>
+
+</div>
+
+</div>
+
+{% endblock %}

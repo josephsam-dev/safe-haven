@@ -20,6 +20,12 @@ ALLOWED_HOSTS = []
 # -------------------------------------------------
 # Installed apps
 # -------------------------------------------------
+# -------------------------------------------------
+# Installed apps
+# -------------------------------------------------
+# -------------------------------------------------
+# Installed apps
+# -------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,10 +38,12 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'counseling',
-    'stories',
+    'community_stories',
     'shop',
     'notifications',
+    'support_requests',   # ✅ ONLY ONCE
 ]
+
 
 # -------------------------------------------------
 # Middleware
@@ -55,13 +63,10 @@ MIDDLEWARE = [
 # -------------------------------------------------
 ROOT_URLCONF = 'safehaven.urls'
 
-# -------------------------------------------------
-# Templates
-# -------------------------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'main' / 'templates'],  # 👈 IMPORTANT
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,9 +136,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # -------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+PAYSTACK_PUBLIC_KEY = "pk_test_489fa5f153db1a54df75a046dfc410d6d9f67d6"
+PAYSTACK_SECRET_KEY = "sk_test_0cae46d41b105eaf3809db651daafd2619fd93ae"
 # -------------------------------------------------
 # Auth redirects
 # -------------------------------------------------
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

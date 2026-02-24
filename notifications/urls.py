@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import notification_list
+from . import views
 
 urlpatterns = [
-    path("", notification_list, name="notifications"),
+    path("", views.notification_list, name="notifications"),
 ]

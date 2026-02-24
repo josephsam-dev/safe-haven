@@ -1,79 +1,79 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block content %}
+
+<!-- HERO -->
 <section class="mission-page">
+
+  <div class="mission-header">
+    <h1>Aboni Haven</h1>
+    <p class="subtitle">
+      For Peace & Love — a compassionate support platform for individuals
+      and families navigating life’s most difficult challenges.
+    </p>
+  </div>
+
   <div class="mission-card">
+    <h2>🌍 Our Mission</h2>
+    <p>
+  Aboni Haven provides structured support services for individuals, couples,
+  and families experiencing emotional distress, trauma, conflict, or life
+  challenges.
+</p>
 
-    <header class="mission-header">
-      <h1>🌍 Safe Haven</h1>
-      <p class="mission-tagline">
-        A compassionate support platform for individuals and families navigating life’s most difficult challenges.
-      </p>
-    </header>
+<p>
+  Our focus is on practical support, emotional care, and access to professional
+  resources that help people stabilize, recover, and improve their quality
+  of life.
+</p>
 
-    <section class="mission-section">
-      <h2>Our Mission</h2>
-      <p>
-        Safe Haven exists to provide a safe, inclusive, and empowering space for
-        single mothers, single fathers, couples, and families affected by trauma,
-        conflict, abuse, and emotional distress.
-      </p>
-      <p>
-        We operate beyond religious ideology and are open to everyone, regardless
-        of faith, belief, culture, background, or identity.
-      </p>
-      <p>
-        While we do not encourage divorce, we believe that with proper care,
-        professional guidance, and community support, many families can heal,
-        rebuild trust, and grow stronger.
-      </p>
-    </section>
-
-    <section class="mission-section">
-      <h2>🌱 Our Vision</h2>
-      <p>
-        We envision a world where every individual and family has access to
-        emotional support, professional care, and essential resources needed
-        to live with dignity, stability, and hope.
-      </p>
-    </section>
-
-    <section class="mission-section">
-      <h2>💙 Our Core Values</h2>
-      <ul class="values-list">
-        <li><strong>Inclusion</strong> — Everyone is welcome</li>
-        <li><strong>Compassion</strong> — We lead with empathy</li>
-        <li><strong>Confidentiality & Safety</strong></li>
-        <li><strong>Empowerment</strong></li>
-        <li><strong>Community</strong></li>
-        <li><strong>Integrity</strong></li>
-      </ul>
-    </section>
-
-    <section class="mission-section">
-      <h2>❓ Frequently Asked Questions</h2>
-
-      <div class="faq-item">
-        <strong>Do you encourage divorce?</strong>
-        <p>No. We support healing, reconciliation, and wellbeing-focused decisions.</p>
-      </div>
-
-      <div class="faq-item">
-        <strong>Is Safe Haven religious?</strong>
-        <p>No. We operate beyond religious ideology and are open to everyone.</p>
-      </div>
-
-      <div class="faq-item">
-        <strong>Can I get online counseling?</strong>
-        <p>Yes. We offer both online and in-person support where available.</p>
-      </div>
-    </section>
-
-    <div class="mission-cta">
-      <a href="/support/" class="btn">Get Support</a>
-      <a href="/stories/" class="btn btn-outline">Read Stories</a>
-    </div>
 
   </div>
+
+  <div class="mission-card">
+    <h2>🌱 Our Vision</h2>
+    <p>
+      We envision a world where every individual and family has access to
+      emotional support, professional care, and essential resources needed
+      to live with dignity, stability, and hope.
+    </p>
+  </div>
+
+  <div class="mission-card">
+    <h2>💙 Our Core Values</h2>
+    <ul class="values-list">
+  <li><strong>Inclusion:</strong> Everyone is welcome</li>
+  <li><strong>Compassion:</strong> We lead with empathy</li>
+  <li><strong>Confidentiality & Safety</strong></li>
+  <li><strong>Empowerment</strong></li>
+  <li><strong>Community</strong></li>
+  <li><strong>Integrity</strong></li>
+</ul>
+  </div>
+
+  <div class="mission-card">
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <p><strong>Do you encourage divorce?</strong><br>
+      No. We support healing, reconciliation, and wellbeing-focused decisions.
+    </p>
+
+    <p><strong>Is Aboni Haven religious?</strong><br>
+      No. We operate beyond religious ideology and are open to everyone.
+    </p>
+
+    <p><strong>Can I get online counseling?</strong><br>
+      Yes. We offer both online and in-person support where available.
+    </p>
+  </div>
+
+  <div class="mission-actions">
+    <a href="{% url 'register' %}" class="btn btn-primary">Get Support</a>
+    <a href="{% url 'stories' %}" class="btn btn-outline">Read Stories</a>
+  </div>
+
 </section>
+
+
 {% endblock %}

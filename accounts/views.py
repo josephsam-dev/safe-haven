@@ -1,41 +1,30 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from .forms import RegisterForm
 
-def register_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
 
-        if User.objects.filter(username=username).exists():
-            return redirect('register')
+        if form.is_valid():
+            user = User.objects.create_user(
+                username=form.cleaned_data["username"],
+                email=form.cleaned_data["email"],
+                password=form.cleaned_data["password"],
+            )
 
-        user = User.objects.create_user(username=username, password=password)
-        login(request, user)
-        return redirect('dashboard')
+            # Profile already created by signal
+            profile = user.profile
+            profile.full_name = form.cleaned_data["full_name"]
+            profile.phone_number = form.cleaned_data["phone_number"]
+            profile.location = form.cleaned_data["location"]
+            profile.save()
 
-    return render(request, 'accounts/register.html')
-
-
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user:
             login(request, user)
-            return redirect('dashboard')
+            return redirect("dashboard")
 
-        return redirect('login')
+    else:
+        form = RegisterForm()
 
-    return render(request, 'accounts/login.html')
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
+    return render(request, "accounts/register.html", {"form": form})

@@ -2,29 +2,1036 @@
 {% load static %}
 
 {% block content %}
-<section class="hero">
-    <img src="{% static 'images/hero.jpg' %}" class="hero-img" alt="Hero">
 
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-        <h1>About Safe Haven</h1>
-        <p>
-            Safe Haven provides access to counseling support,
-            essential resources, and a trusted community.
-        </p>
-
-        <div class="hero-buttons">
-            <!-- ✅ LINKED TO MISSION PAGE -->
-            <a href="{% url 'mission' %}" class="btn btn-primary">
-                Our Mission
-            </a>
-
-            <!-- 🔜 CAN BE WIRED LATER -->
-            <a href="#" class="btn btn-outline">
-                Get Support
-            </a>
-        </div>
+<!-- HERO SECTION - Full Screen Height -->
+<section class="hero-section">
+  
+  <!-- SLIDER BACKGROUND -->
+  <div class="hero-slider">
+    <div class="hero-slides">
+      <div class="slide" style="background-image: url('{% static 'images/hero-1.jpg' %}');"></div>
+      <div class="slide" style="background-image: url('{% static 'images/hero-2.jpg' %}');"></div>
+      <div class="slide" style="background-image: url('{% static 'images/hero-3.jpg' %}');"></div>
     </div>
+  </div>
+
+  <!-- LIGHT OVERLAY - Reduced for better image visibility -->
+  <div class="hero-overlay"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content" data-aos="fade-up">
+    <h1 class="hero-title">
+      Your Safe Space to Heal and Grow
+    </h1>
+    <p class="hero-subtitle">
+      Access professional counseling, share your story, and find support in a trusted community.
+    </p>
+    <div class="hero-buttons">
+      <a href="{% url 'register' %}" class="btn btn-primary-green">
+        <i class="bi bi-heart-fill me-2"></i>Get Support
+      </a>
+      <a href="{% url 'donation' %}" class="btn btn-accent">
+        <i class="bi bi-gift me-2"></i>Donate Today
+      </a>
+    </div>
+  </div>
+
+  <!-- SCROLL DOWN INDICATOR -->
+  <div class="scroll-indicator">
+    <i class="bi bi-chevron-down"></i>
+  </div>
+
 </section>
+
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about" data-aos="fade-up">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      
+      <!-- About Image -->
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="about-image-wrapper">
+          <div class="about-image-container">
+            <img src="{% static 'images/about-haven.jpg' %}" 
+                 alt="Aboni Haven Community" 
+                 class="about-image"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="about-image-fallback" style="display: none;">
+              <i class="bi bi-image-fill"></i>
+              <span>Aboni Haven Community</span>
+            </div>
+          </div>
+          <div class="about-badge">
+            <i class="bi bi-shield-heart"></i>
+            <span>Safe & Confidential</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Content -->
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="about-content">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">A Haven for Mental Wellness</h2>
+          <p class="section-lead">
+            Aboni Haven is a compassionate community dedicated to mental health support, 
+            providing accessible counseling and a safe space for individuals to heal, grow, and thrive.
+          </p>
+          
+          <div class="mission-box">
+            <h3><i class="bi bi-bullseye me-2"></i>Our Mission</h3>
+            <p>
+              To break the stigma around mental health by providing accessible, professional 
+              support and fostering a community where everyone feels heard, valued, and empowered 
+              to prioritize their mental well-being.
+            </p>
+          </div>
+
+          <div class="values-list">
+            <div class="value-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Compassionate Care</span>
+            </div>
+            <div class="value-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Complete Confidentiality</span>
+            </div>
+            <div class="value-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Professional Guidance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- HOW WE HELP SECTION -->
+<section class="services-section" id="services" data-aos="fade-up">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="section-header text-center" data-aos="fade-down">
+      <span class="section-tag">Our Services</span>
+      <h2 class="section-title">How We Help</h2>
+      <p class="section-subtitle">
+        Comprehensive support tailored to your unique journey toward mental wellness
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="row g-4 justify-content-center">
+      
+      <!-- Counseling -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-chat-heart-fill"></i>
+          </div>
+          <h3>Professional Counseling</h3>
+          <p>
+            Connect with licensed therapists and counselors who provide personalized, 
+            confidential support for anxiety, depression, trauma, and life challenges.
+          </p>
+          <ul class="service-features">
+            <li><i class="bi bi-check2"></i>One-on-one sessions</li>
+            <li><i class="bi bi-check2"></i>Secure video calls</li>
+            <li><i class="bi bi-check2"></i>Flexible scheduling</li>
+          </ul>
+          <a href="{% url 'register' %}" class="service-link">
+            Start Counseling <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Community Support -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h3>Community Support</h3>
+          <p>
+            Join a welcoming community of individuals who understand your journey. 
+            Share experiences, find encouragement, and build meaningful connections.
+          </p>
+          <ul class="service-features">
+            <li><i class="bi bi-check2"></i>Support groups</li>
+            <li><i class="bi bi-check2"></i>Peer connections</li>
+            <li><i class="bi bi-check2"></i>24/7 community access</li>
+          </ul>
+          <a href="{% url 'register' %}" class="service-link">
+            Join Community <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Share Your Story -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="bi bi-pencil-square"></i>
+          </div>
+          <h3>Share Your Story</h3>
+          <p>
+            Your voice matters. Share your mental health journey to inspire others, 
+            break the silence, and help reduce stigma around mental health challenges.
+          </p>
+          <ul class="service-features">
+            <li><i class="bi bi-check2"></i>Anonymous sharing</li>
+            <li><i class="bi bi-check2"></i>Inspire others</li>
+            <li><i class="bi bi-check2"></i>Break the stigma</li>
+          </ul>
+          <a href="{% url 'stories' %}" class="service-link">
+            Share Story <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- TRUST / IMPACT SECTION -->
+<section class="impact-section" data-aos="fade-up">
+  <div class="container">
+    <div class="impact-wrapper">
+      
+      <!-- Trust Message -->
+      <div class="trust-content text-center" data-aos="zoom-in">
+        <i class="bi bi-shield-check trust-icon"></i>
+        <h2>Trusted Mental Health Support</h2>
+        <p class="trust-text">
+          Join thousands who have found hope, healing, and community through Aboni Haven. 
+          Your privacy and well-being are our highest priorities.
+        </p>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats-grid" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-item">
+          <div class="stat-number" data-count="2500">0</div>
+          <div class="stat-label">Lives Supported</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="50">0</div>
+          <div class="stat-label">Professional Counselors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="98">0</div>
+          <div class="stat-label">% Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-count="24">0</div>
+          <div class="stat-label">/7 Support Available</div>
+        </div>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges" data-aos="fade-up" data-aos-delay="400">
+        <div class="badge-item">
+          <i class="bi bi-lock-fill"></i>
+          <span>HIPAA Compliant</span>
+        </div>
+        <div class="badge-item">
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>End-to-End Encrypted</span>
+        </div>
+        <div class="badge-item">
+          <i class="bi bi-award-fill"></i>
+          <span>Licensed Professionals</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA SECTION -->
+<section class="cta-section" data-aos="fade-up">
+  <div class="container">
+    <div class="cta-content text-center">
+      <h2>Ready to Begin Your Journey?</h2>
+      <p>
+        If you're going through a difficult time, you don't have to face it alone. 
+        Take the first step toward healing today.
+      </p>
+      <div class="cta-buttons">
+        <a href="{% url 'register' %}" class="btn btn-primary-green btn-lg">
+          <i class="bi bi-heart me-2"></i>Get Started
+        </a>
+        <a href="{% url 'contact' %}" class="btn btn-outline-accent btn-lg">
+          <i class="bi bi-envelope me-2"></i>Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* =========================================
+     ABONI HAVEN BRAND COLOR PALETTE
+     Green Primary + Orange Accent
+     ========================================= */
+  :root {
+    /* Primary Green from "Aboni" */
+    --aboni-green: #5A8F3E;
+    --aboni-green-dark: #4A7A32;
+    --aboni-green-light: #7AAF5A;
+    --aboni-green-soft: #E8F5E0;
+    --aboni-green-pale: #F5FBF2;
+    
+    /* Accent Orange from "Haven" */
+    --haven-orange: #E67E22;
+    --haven-orange-dark: #D35400;
+    --haven-orange-light: #F39C12;
+    --haven-orange-soft: #FEF5E7;
+    
+    /* Secondary colors */
+    --text-dark: #2C3E50;
+    --text-muted: #6C757D;
+    --bg-soft: #F5FBF2;
+    --white: #FFFFFF;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --transition: all 0.3s ease;
+  }
+
+  /* =========================================
+     HERO SECTION - Full Screen Height
+     ========================================= */
+  .hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    animation: slideShow 15s infinite;
+  }
+
+  .slide:nth-child(1) { animation-delay: 0s; }
+  .slide:nth-child(2) { animation-delay: 5s; }
+  .slide:nth-child(3) { animation-delay: 10s; }
+
+  @keyframes slideShow {
+    0%, 33.33% { opacity: 1; }
+    33.34%, 100% { opacity: 0; }
+  }
+
+  /* REDUCED OVERLAY - Lighter for better image visibility */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Much lighter gradient - green at 35% opacity */
+    background: linear-gradient(135deg, rgba(90, 143, 62, 0.35) 0%, rgba(44, 62, 80, 0.45) 100%);
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.6;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* PRIMARY GREEN BUTTON */
+  .btn-primary-green {
+    background: linear-gradient(135deg, var(--aboni-green) 0%, var(--aboni-green-dark) 100%);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(90, 143, 62, 0.4);
+    text-shadow: none;
+  }
+
+  .btn-primary-green:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(90, 143, 62, 0.6);
+    color: white;
+    background: linear-gradient(135deg, var(--aboni-green-light) 0%, var(--aboni-green) 100%);
+  }
+
+  /* ACCENT ORANGE BUTTON - For Donate/Important CTAs */
+  .btn-accent {
+    background: linear-gradient(135deg, var(--haven-orange) 0%, var(--haven-orange-dark) 100%);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+    text-shadow: none;
+  }
+
+  .btn-accent:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.6);
+    color: white;
+    background: linear-gradient(135deg, var(--haven-orange-light) 0%, var(--haven-orange) 100%);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: white;
+    font-size: 2rem;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+  }
+
+  /* =========================================
+     SECTION COMMON STYLES
+     ========================================= */
+  section {
+    padding: 5rem 0;
+  }
+
+  .section-tag {
+    display: inline-block;
+    color: var(--aboni-green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* =========================================
+     ABOUT SECTION
+     ========================================= */
+  .about-section {
+    background: white;
+  }
+
+  .about-image-wrapper {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .about-image-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    position: relative;
+    background: var(--aboni-green-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-image {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .about-image-wrapper:hover .about-image {
+    transform: scale(1.05);
+  }
+
+  .about-image-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--aboni-green-soft) 0%, var(--aboni-green-pale) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--aboni-green);
+    font-size: 1.2rem;
+    gap: 1rem;
+  }
+
+  .about-image-fallback i {
+    font-size: 4rem;
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: var(--aboni-green);
+    z-index: 2;
+  }
+
+  .about-badge i {
+    font-size: 1.2rem;
+  }
+
+  .about-content {
+    padding-left: 2rem;
+  }
+
+  .section-lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .mission-box {
+    background: var(--aboni-green-pale);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--aboni-green);
+    margin-bottom: 2rem;
+  }
+
+  .mission-box h3 {
+    font-size: 1.25rem;
+    color: var(--aboni-green);
+    margin-bottom: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+
+  .mission-box p {
+    color: var(--text-muted);
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .value-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+  }
+
+  .value-item i {
+    color: var(--aboni-green);
+    font-size: 1.25rem;
+  }
+
+  /* =========================================
+     SERVICES SECTION
+     ========================================= */
+  .services-section {
+    background: var(--aboni-green-pale);
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .service-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(90, 143, 62, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(90, 143, 62, 0.15);
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--aboni-green), var(--haven-orange));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--aboni-green) 0%, var(--aboni-green-dark) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 10px 20px rgba(90, 143, 62, 0.3);
+  }
+
+  .service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+  }
+
+  .service-card p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .service-features i {
+    color: var(--aboni-green);
+    font-weight: bold;
+  }
+
+  .service-link {
+    color: var(--aboni-green);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .service-link:hover {
+    gap: 0.75rem;
+    color: var(--haven-orange);
+  }
+
+  /* =========================================
+     IMPACT SECTION
+     ========================================= */
+  .impact-section {
+    background: linear-gradient(135deg, var(--text-dark) 0%, #1a252f 100%);
+    color: white;
+    padding: 5rem 0;
+  }
+
+  .impact-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .trust-icon {
+    font-size: 4rem;
+    color: var(--haven-orange);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .trust-content h2 {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .trust-text {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(90, 143, 62, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(90, 143, 62, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .stat-item:hover {
+    background: rgba(230, 126, 34, 0.15);
+    border-color: var(--haven-orange);
+    transform: translateY(-5px);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--haven-orange);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(90, 143, 62, 0.15);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(90, 143, 62, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .badge-item:hover {
+    background: rgba(230, 126, 34, 0.2);
+    border-color: var(--haven-orange);
+  }
+
+  .badge-item i {
+    color: var(--haven-orange);
+  }
+
+  /* =========================================
+     CTA SECTION
+     ========================================= */
+  .cta-section {
+    background: white;
+    padding: 5rem 0;
+  }
+
+  .cta-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary-green {
+    background: var(--aboni-green);
+    border-color: var(--aboni-green);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+  }
+
+  .btn-primary-green:hover {
+    background: var(--aboni-green-dark);
+    border-color: var(--aboni-green-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(90, 143, 62, 0.3);
+    color: white;
+  }
+
+  /* Orange outline button for secondary CTA */
+  .btn-outline-accent {
+    border: 2px solid var(--haven-orange);
+    color: var(--haven-orange);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: transparent;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .btn-outline-accent:hover {
+    background: var(--haven-orange);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+  }
+
+  /* =========================================
+     RESPONSIVE DESIGN
+     ========================================= */
+  @media (max-width: 991px) {
+    section {
+      padding: 3rem 0;
+    }
+
+    .about-content {
+      padding-left: 0;
+      margin-top: 2rem;
+    }
+
+    .about-image-wrapper,
+    .about-image-container,
+    .about-image {
+      min-height: 300px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .btn-primary-green, .btn-accent {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trust-badges {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .btn-primary-green, .btn-outline-accent {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-section {
+      min-height: 500px;
+    }
+
+    .about-image-wrapper,
+    .about-image-container,
+    .about-image {
+      min-height: 250px;
+    }
+
+    .service-card {
+      padding: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+    }
+
+    .trust-content h2 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Animated Counter for Statistics
+  const counters = document.querySelectorAll('.stat-number');
+  const speed = 200;
+
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-count');
+      const count = +counter.innerText;
+      const inc = target / speed;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + inc);
+        setTimeout(animateCounters, 20);
+      } else {
+        counter.innerText = target + (target === 98 ? '%' : target === 24 ? '/7' : '+');
+      }
+    });
+  };
+
+  // Trigger animation when section is in view
+  const observerOptions = {
+    threshold: 0.5
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const impactSection = document.querySelector('.impact-section');
+  if (impactSection) {
+    observer.observe(impactSection);
+  }
+
+  // Smooth scroll for scroll indicator
+  document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
 {% endblock %}

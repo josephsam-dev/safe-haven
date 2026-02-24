@@ -1,44 +1,14 @@
-# Safe Haven
+## Backend Focus
+This repository represents the backend implementation of the Safe Haven platform,
+built during the ALX capstone phase. The backend manages authentication, session
+workflow, notifications, and data persistence.
 
-Safe Haven is a web application that allows users to request counseling support, track session status, and receive real-time notifications.
+## Demo
+A short demo video is available showing the application in action:
+[Add Loom link here]
 
-## 🚀 Features
-- User authentication (login & registration)
-- Counseling session requests
-- Session status tracking (Pending, Confirmed, Completed)
-- Staff dashboard for managing requests
-- Automatic notifications on session status changes
-- Community stories section
-- Essentials shop request system
-
-## 🛠 Tech Stack
-- Python
-- Django
-- HTML, CSS
-- SQLite (development database)
-
-## 👥 User Roles
-- **Users**
-  - Request counseling sessions
-  - View session status
-  - Receive notifications
-  - Read and share stories
-
-- **Staff**
-  - View all counseling requests
-  - Approve or complete sessions
-  - Monitor pending requests from the dashboard
-
-## 📌 Project Status
-This project is functionally complete and serves as a personal portfolio project demonstrating full-stack Django development, role-based dashboards, and event-driven notifications.
-
-## ✨ What I Learned
-- Django views and templates
-- Working with models and relationships
-- Role-based access control
-- Django signals for background logic
-- Building real-world dashboard features
-
----
-
-Built with care as a personal learning and portfolio project.
+## Key Endpoints / Pages
+- User registration & login
+- Counseling session request
+- Admin dashboard for session management
+- Status notifications

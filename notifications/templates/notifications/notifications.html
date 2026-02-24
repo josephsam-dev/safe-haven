@@ -1,22 +1,16 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-<div class="container">
-  <h2>🔔 Notifications</h2>
+<section class="notifications-page">
+  <h1>Notifications</h1>
 
   {% for note in notifications %}
-    <div class="card">
+    <div class="notification-card {% if not note.is_read %}unread{% endif %}">
       <p>{{ note.message }}</p>
-
-      <a class="btn" href="{% url 'book_counseling' %}">
-  Book a Counseling Session
-</a>
-
-        Book a Counseling Session
-      </a>
+      <small>{{ note.created_at|date:"M d, Y H:i" }}</small>
     </div>
   {% empty %}
     <p>No notifications yet.</p>
   {% endfor %}
-</div>
+</section>
 {% endblock %}

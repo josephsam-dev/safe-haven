@@ -1,0 +1,197 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<section class="cta-section">
+
+  <div class="cta-content">
+
+    <h2>Support Aboni Haven</h2>
+
+    <p>Your donation helps provide counseling and support.</p>
+
+
+    <!-- MAIN DONATION FORM -->
+
+    <form method="POST">
+
+      {% csrf_token %}
+
+      <div style="margin:15px;">
+        <input type="text" name="name"
+        placeholder="Your Name"
+        required class="form-control">
+      </div>
+
+      <div style="margin:15px;">
+        <input type="email"
+        name="email"
+        placeholder="Your Email"
+        required class="form-control">
+      </div>
+
+      <div style="margin:15px;">
+        <input type="number"
+        name="amount"
+        placeholder="Amount (₦)"
+        required class="form-control">
+      </div>
+
+      <button type="submit"
+      class="btn btn-primary">
+
+        Donate Now
+
+      </button>
+
+    </form>
+
+
+    <!-- PAYSTACK -->
+
+    <hr>
+
+    <h3>Or donate instantly:</h3>
+
+    <button onclick="payWithPaystack()"
+    class="btn btn-success">
+
+      Donate with Paystack
+
+    </button>
+
+
+
+    <!-- ACCEPTED METHODS -->
+
+    <div style="margin-top:20px;">
+
+      <p><strong>We accept:</strong></p>
+
+      <p style="font-size:18px;">
+
+      💳 Card &nbsp;
+      🏦 Bank &nbsp;
+      📱 USSD &nbsp;
+      🔁 Transfer &nbsp;
+      🟡 Paystack
+
+      </p>
+
+    </div>
+
+
+
+    <!-- BANK TRANSFER SECTION -->
+
+    <hr>
+
+    <h3>Donate via Bank Transfer</h3>
+
+
+    <div style="
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:10px;
+    max-width:400px;
+    margin:auto;
+    text-align:left;
+    ">
+
+      <p>
+      <strong>Bank Name:</strong><br>
+      Access Bank
+      </p>
+
+      <p>
+      <strong>Account Name:</strong><br>
+      Aboni Haven
+      </p>
+
+      <p>
+      <strong>Account Number:</strong><br>
+      1234567890
+      </p>
+
+      <p style="color:#555;">
+
+      After transfer, send proof to:<br>
+
+      <strong>
+      aboni@haven.com
+      </strong>
+
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+
+<!-- PAYSTACK SCRIPT -->
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+
+function payWithPaystack(){
+
+let email =
+document.querySelector(
+'input[name="email"]').value;
+
+let amount =
+document.querySelector(
+'input[name="amount"]').value;
+
+
+if(!email || !amount){
+
+alert(
+"Please enter email and amount first"
+);
+
+return;
+
+}
+
+
+let handler =
+PaystackPop.setup({
+
+key:
+'pk_test_489fa5f153db1a54df75a046dfc410d6d9f67d6',
+
+email: email,
+
+amount: amount * 100,
+
+currency: "NGN",
+
+callback: function(response){
+
+alert(
+"Payment successful!"
+);
+
+window.location.href =
+"/donation-success/";
+
+},
+
+});
+
+
+handler.openIframe();
+
+}
+
+</script>
+
+
+{% endblock %}

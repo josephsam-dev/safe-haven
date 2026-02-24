@@ -1,46 +1,69 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container">
 
-  <h1>🧠 Book a Counseling Session</h1>
+<section class="page dashboard-page">
+  <div class="page-container">
 
-  <p>
-    Please provide a few details below to request a counseling session.
-    All requests are handled with care and confidentiality.
-  </p>
+    <div class="form-card">
 
-  <form method="post">
-    {% csrf_token %}
+      <h1 class="form-title">🧠 Book a Counseling Session</h1>
 
-    <label>Session Type</label><br>
-    <select name="session_type" required>
-      <option value="">Select a session type</option>
-      <option value="Emotional Support">Emotional Support</option>
-      <option value="Mental Health">Mental Health</option>
-      <option value="Life Guidance">Life Guidance</option>
-    </select>
+      <p class="form-subtitle">
+        Please provide a few details below to request a counseling session.
+        All requests are handled with care and confidentiality.
+      </p>
 
-    <br><br>
+      <form method="post">
+        {% csrf_token %}
 
-    <label>Preferred Date</label><br>
-    <input type="date" name="scheduled_date" required>
+        <!-- SESSION TYPE -->
+        <div class="form-group">
+          <label for="session_type">Session Type</label>
+          <select name="session_type" id="session_type" required>
+            <option value="">Select a session type</option>
+            <option value="Individual">Individual Counseling</option>
+            <option value="Marriage">Marriage Counseling</option>
+            <option value="Family">Family Counseling</option>
+            <option value="Trauma">Trauma Support</option>
+          </select>
+        </div>
 
-    <br><br>
+        <!-- DATE -->
+        <div class="form-group">
+          <label for="scheduled_date">Preferred Date</label>
+          <input
+            type="date"
+            name="scheduled_date"
+            id="scheduled_date"
+            required
+          >
+        </div>
 
-    <label>Message (optional)</label><br>
-    <textarea name="message" rows="4" placeholder="Briefly describe your concern..."></textarea>
+        <!-- MESSAGE -->
+        <div class="form-group">
+          <label for="message">Message (optional)</label>
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Briefly describe your concern..."
+          ></textarea>
+        </div>
 
-    <br><br>
+        <!-- SUBMIT -->
+        <button type="submit" class="btn btn-yellow submit-btn">
+          Submit Request
+        </button>
+      </form>
 
-    <button class="btn" type="submit">
-      Submit Request
-    </button>
-  </form>
+      <p class="form-note">
+        A counselor or staff member will review your request and get back to you.
+      </p>
 
-  <p class="muted">
-    A counselor or staff member will review your request and get back to you.
-  </p>
+    </div>
 
-</div>
+  </div>
+</section>
+
 {% endblock %}

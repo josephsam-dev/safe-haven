@@ -1,0 +1,49 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="write-story-page">
+
+  <div class="container">
+
+```
+<h1 class="page-title">Share Your Story</h1>
+
+<p class="page-subtitle">
+  Your story can inspire hope and help others feel less alone.
+</p>
+
+<form method="POST" class="story-form">
+
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label>Story Title</label>
+    <input type="text" name="title" class="form-control" placeholder="Enter your story title" required>
+  </div>
+
+  <div class="form-group">
+    <label>Your Story</label>
+    <textarea name="content" rows="8" class="form-control" placeholder="Write your story here..." required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <input type="checkbox" name="anonymous">
+      Post anonymously
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Publish Story
+  </button>
+
+</form>
+```
+
+  </div>
+
+</section>
+
+{% endblock %}

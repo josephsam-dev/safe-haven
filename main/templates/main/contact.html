@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="contact-section">
+  <h1>Contact Us</h1>
+
+  <p>
+    If you have questions or need assistance, please reach out.
+    We respond with care and confidentiality.
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <a href="mailto:abonihaven@gmail.com">abonihaven@gmail.com</a>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <a href="tel:+2348128344374">+234 812 834 4374</a>
+  </p>
+
+  <p>
+    For personalized support, please
+    <a href="{% url 'register' %}">create an account</a>.
+  </p>
+
+  <hr>
+
+  <h3>Connect with Aboni Haven</h3>
+
+  <ul class="social-links">
+    <li><a href="https://www.youtube.com/@abonihaven" target="_blank">YouTube</a></li>
+    <li><a href="https://www.instagram.com/abonihaven" target="_blank">Instagram</a></li>
+    <li><a href="https://www.facebook.com/abonihaven" target="_blank">Facebook</a></li>
+    <li><a href="https://x.com/abonihaven" target="_blank">X (Twitter)</a></li>
+    <li><a href="https://www.tiktok.com/@abonihaven" target="_blank">TikTok</a></li>
+    <li><a href="https://wa.me/2348128344374" target="_blank">WhatsApp</a></li>
+    <li><a href="https://www.linkedin.com/company/abonihaven" target="_blank">LinkedIn</a></li>
+  </ul>
+</section>
+{% endblock %}

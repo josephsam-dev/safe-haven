@@ -1,19 +1,48 @@
-{% extends 'main/base.html' %}
-
-{% block title %}Register{% endblock %}
-
+{% extends "main/base.html" %}
 {% block content %}
-<h2>Register</h2>
 
-<form method="POST">
-    {% csrf_token %}
+<div class="page auth-page">
+  <div class="auth-card">
+    <h2>Create Account</h2>
 
-    <label>Username</label><br>
-    <input type="text" name="username" required><br><br>
+    <form method="post">
+      {% csrf_token %}
 
-    <label>Password</label><br>
-    <input type="password" name="password" required><br><br>
+      <div class="form-group">
+        {{ form.full_name.label_tag }}
+        {{ form.full_name }}
+      </div>
 
-    <button type="submit">Register</button>
-</form>
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+
+      <div class="form-group">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+      </div>
+
+      <div class="form-group">
+        {{ form.phone_number.label_tag }}
+        {{ form.phone_number }}
+      </div>
+
+      <div class="form-group">
+        {{ form.location.label_tag }}
+        {{ form.location }}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+      </div>
+
+      <button type="submit" class="btn btn-primary auth-btn">
+        Register
+      </button>
+    </form>
+  </div>
+</div>
+
 {% endblock %}

@@ -1,7 +1,6 @@
-from django.db.models import Count
-from django.shortcuts import render
+from .models import Donation
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
 from counseling.models import CounselingSession
 
 
@@ -11,39 +10,37 @@ def home(request):
 
 @login_required
 def dashboard(request):
+
     user = request.user
 
-    # User counseling status summary
-    session_summary = (
-        CounselingSession.objects
-        .filter(user=user)
-        .values("status")
-        .annotate(count=Count("id"))
-    )
+    pending = CounselingSession.objects.filter(
+        user=user, status="pending"
+    ).count()
 
-    status_counts = {
-        "pending": 0,
-        "confirmed": 0,
-        "completed": 0,
-    }
+    confirmed = CounselingSession.objects.filter(
+        user=user, status="confirmed"
+    ).count()
 
-    for item in session_summary:
-        status_counts[item["status"]] = item["count"]
-
-    # Staff pending requests count
-    pending_total = 0
-    if request.user.is_staff:
-        pending_total = CounselingSession.objects.filter(status="pending").count()
-
-    context = {
-        "status_counts": status_counts,
-        "pending_total": pending_total,
-    }
-
-    return render(request, "main/dashboard.html", context)
+    completed = CounselingSession.objects.filter(
+        user=user, status="completed"
+    ).count()
 
 
-@login_required
+    return render(request, "main/dashboard.html", {
+        "pending": pending,
+        "confirmed": confirmed,
+        "completed": completed,
+    })
+
+
+def mission(request):
+    return render(request, "main/mission.html")
+
+
+def about(request):
+    return render(request, "main/about.html")
+
+
 def shop(request):
     return render(request, "main/shop.html")
 
@@ -52,9 +49,73 @@ def shop(request):
 def staff_requests(request):
     return render(request, "main/staff_requests.html")
 
-def about(request):
-    return render(request, "main/about.html")
 
-def mission(request):
-    return render(request, "main/mission.html")
+def contact(request):
+    return render(request, "main/contact.html")
 
+
+from django.shortcuts import render, redirect
+from .models import Donation
+
+
+def donation(request):
+
+    from .models import Donation
+from django.core.mail import send_mail
+from django.shortcuts import render
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+def donation(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        amount = request.POST.get("amount")
+
+        # Save donation
+        donation = Donation.objects.create(
+            name=name,
+            email=email,
+            amount=amount
+        )
+
+        # Email to donor
+        send_mail(
+            "Thank you for supporting Aboni Haven",
+            f"""
+Dear {name},
+
+Thank you for donating ₦{amount} to Aboni Haven.
+
+Your support helps us provide counseling and emotional support.
+
+We truly appreciate you.
+
+Aboni Haven Team
+""",
+            "aboni@haven.com",
+            [email],
+            fail_silently=True,
+        )
+
+        # Email to YOU (admin)
+        send_mail(
+            "New Donation Received",
+            f"{name} donated ₦{amount}\nEmail: {email}",
+            "aboni@haven.com",
+            ["yourrealemail@gmail.com"],  # replace with your email
+            fail_silently=True,
+        )
+
+        return render(request, "main/donation_success.html", {
+            "name": name,
+            "amount": amount
+        })
+
+    return render(request, "main/donation.html")
+def write_story(request):
+    return render(request, "main/write_story.html")
+def edit_profile(request):
+    return render(request, "main/edit_profile.html")

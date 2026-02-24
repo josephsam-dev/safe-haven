@@ -3,115 +3,810 @@
 
 {% block content %}
 
-<style>
-/* ===== DASHBOARD STATS (LOCAL & GUARANTEED) ===== */
-.dashboard-stats {
-  max-width: 900px;
-  margin: 2rem auto 3rem;
-}
+<section class="dashboard-page">
 
-.dashboard-stats .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-}
+  <!-- DASHBOARD HEADER -->
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Welcome back, {{ request.user.username }} 👋</p>
+  </div>
 
-.dashboard-stats .stat-card {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
+  <!-- USER PROFILE SUMMARY CARD -->
+  <div class="profile-summary-card" data-aos="fade-up">
+    <div class="profile-avatar">
+      <div class="avatar-circle">
+        {{ request.user.username|first|upper }}
+      </div>
+      <div class="profile-info">
+        <h3>{{ request.user.get_full_name|default:request.user.username }}</h3>
+        <p>{{ request.user.email }}</p>
+        <span class="member-since">Member since {{ request.user.date_joined|date:"F Y" }}</span>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div class="profile-stat">
+        <span class="stat-value">{{ completed|default:"0" }}</span>
+        <span class="stat-label">Sessions</span>
+      </div>
+      <div class="profile-stat">
+        <span class="stat-value">{{ stories_count|default:"0" }}</span>
+        <span class="stat-label">Stories</span>
+      </div>
+      <div class="profile-stat">
+        <span class="stat-value">{{ notifications_count|default:"0" }}</span>
+        <span class="stat-label">Notifications</span>
+      </div>
+    </div>
+  </div>
 
-.dashboard-stats .stat-card h3 {
-  margin-bottom: 0.25rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #555;
-}
-
-.dashboard-stats .stat-card p {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.dashboard-stats .pending { border-left: 5px solid #f59e0b; }
-.dashboard-stats .confirmed { border-left: 5px solid #2563eb; }
-.dashboard-stats .completed { border-left: 5px solid #16a34a; }
-.dashboard-stats .staff { border-left: 5px solid #7c3aed; }
-</style>
-
-<section class="page">
-  <div class="page-container">
-
-    <h1 class="page-title">Dashboard</h1>
-
-    <p class="welcome-text">
-      Welcome back, <strong>{{ user.username }}</strong> 👋
-    </p>
-
-    <!-- STATUS SUMMARY -->
-    <div class="dashboard-stats">
-      <div class="stats-grid">
-
-        <div class="stat-card pending">
-          <h3>Pending</h3>
-          <p>{{ status_counts.pending }}</p>
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions" data-aos="fade-up">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="quick-actions-grid">
+      <a href="{% url 'book_counseling' %}" class="quick-action-btn">
+        <div class="action-icon">
+          <i class="bi bi-calendar-plus-fill"></i>
         </div>
-
-        <div class="stat-card confirmed">
-          <h3>Confirmed</h3>
-          <p>{{ status_counts.confirmed }}</p>
+        <span>Book Session</span>
+      </a>
+      <a href="{% url 'write_story' %}" class="quick-action-btn">
+        <div class="action-icon">
+          <i class="bi bi-pencil-square"></i>
         </div>
-
-        <div class="stat-card completed">
-          <h3>Completed</h3>
-          <p>{{ status_counts.completed }}</p>
+        <span>Write Story</span>
+      </a>
+      <a href="{% url 'edit_profile' %}" class="quick-action-btn">
+        <div class="action-icon">
+          <i class="bi bi-person-gear"></i>
         </div>
+        <span>Edit Profile</span>
+      </a>
+    </div>
+  </div>
 
-        {% if user.is_staff %}
-        <div class="stat-card staff">
-          <h3>Pending Requests</h3>
-          <p>{{ pending_total }}</p>
+  <!-- STATUS SUMMARY -->
+  <div class="dashboard-stats" data-aos="fade-up">
+    <div class="stat-card">
+      <h3>Pending</h3>
+      <span>{{ pending|default:"0" }}</span>
+    </div>
+    <div class="stat-card">
+      <h3>Confirmed</h3>
+      <span>{{ confirmed|default:"0" }}</span>
+    </div>
+    <div class="stat-card">
+      <h3>Completed</h3>
+      <span>{{ completed|default:"0" }}</span>
+    </div>
+  </div>
+
+  <!-- UPCOMING COUNSELING SESSION -->
+  {% if upcoming_session %}
+  <div class="upcoming-session-card" data-aos="fade-up">
+    <div class="session-header">
+      <i class="bi bi-calendar-check-fill"></i>
+      <h3>Upcoming Counseling Session</h3>
+    </div>
+    <div class="session-details">
+      <div class="session-info">
+        <p class="session-date">
+          <i class="bi bi-calendar3"></i>
+          {{ upcoming_session.date|date:"l, F j, Y" }} at {{ upcoming_session.time|time:"g:i A" }}
+        </p>
+        <p class="session-counselor">
+          <i class="bi bi-person-circle"></i>
+          with {{ upcoming_session.counselor.name }}
+        </p>
+        <p class="session-type">
+          <i class="bi bi-camera-video"></i>
+          {{ upcoming_session.session_type|default:"Video Call" }}
+        </p>
+      </div>
+      <div class="session-actions">
+        <a href="{{ upcoming_session.join_link }}" class="btn btn-join">Join Session</a>
+        <a href="{% url 'reschedule_session' upcoming_session.id %}" class="btn btn-reschedule">Reschedule</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="upcoming-session-card empty" data-aos="fade-up">
+    <div class="session-header">
+      <i class="bi bi-calendar-x-fill"></i>
+      <h3>No Upcoming Sessions</h3>
+    </div>
+    <p>You don't have any scheduled counseling sessions.</p>
+    <a href="{% url 'book_counseling' %}" class="btn btn-primary">Book Your First Session</a>
+  </div>
+  {% endif %}
+
+  <!-- RECENT ACTIVITY -->
+  <div class="recent-activity" data-aos="fade-up">
+    <h2 class="section-title">Recent Activity</h2>
+    <div class="activity-list">
+      {% if recent_activities %}
+        {% for activity in recent_activities|slice:":5" %}
+        <div class="activity-item">
+          <div class="activity-icon 
+            {% if activity.type == 'session' %}icon-session
+            {% elif activity.type == 'story' %}icon-story
+            {% elif activity.type == 'shop' %}icon-shop
+            {% else %}icon-general{% endif %}">
+            <i class="bi 
+              {% if activity.type == 'session' %}bi-calendar-check
+              {% elif activity.type == 'story' %}bi-journal-text
+              {% elif activity.type == 'shop' %}bi-bag-check
+              {% else %}bi-bell{% endif %}"></i>
+          </div>
+          <div class="activity-content">
+            <p class="activity-text">{{ activity.description }}</p>
+            <span class="activity-time">{{ activity.timestamp|timesince }} ago</span>
+          </div>
         </div>
-        {% endif %}
+        {% endfor %}
+      {% else %}
+        <div class="activity-empty">
+          <i class="bi bi-clock-history"></i>
+          <p>No recent activity to show.</p>
+        </div>
+      {% endif %}
+    </div>
+    {% if recent_activities %}
+    <a href="{% url 'activity_log' %}" class="view-all-link">View All Activity <i class="bi bi-arrow-right"></i></a>
+    {% endif %}
+  </div>
 
+  <!-- MAIN ACTIONS GRID -->
+  <div class="dashboard-grid">
+
+    <div class="dashboard-card" data-aos="fade-up">
+      <div class="card-icon counseling-icon">
+        <i class="bi bi-chat-heart-fill"></i>
+      </div>
+      <h3>Counseling</h3>
+      <p>Book or manage your counseling sessions.</p>
+      <div class="card-actions">
+        <a href="{% url 'book_counseling' %}" class="btn btn-primary">Book Session</a>
+        <a href="{% url 'my_sessions' %}" class="btn btn-outline">My Sessions</a>
       </div>
     </div>
 
-    <!-- ACTION CARDS -->
-    <div class="dashboard-grid">
-
-      <div class="card">
-        <h3>🧠 Counseling</h3>
-        <p>Book or manage your counseling sessions.</p>
-        <a href="/counseling/book/" class="btn">Book Session</a>
-        <a href="/counseling/my-sessions/" class="link">View My Sessions</a>
+    <div class="dashboard-card" data-aos="fade-up">
+      <div class="card-icon stories-icon">
+        <i class="bi bi-book-half"></i>
       </div>
-
-      <div class="card">
-        <h3>📖 Stories</h3>
-        <p>Share or read community stories.</p>
-        <a href="/stories/" class="btn">Explore Stories</a>
+      <h3>Stories</h3>
+      <p>Share or read community stories.</p>
+      <div class="card-actions">
+        <a href="{% url 'stories' %}" class="btn btn-primary">Explore Stories</a>
+        <a href="{% url 'write_story' %}" class="btn btn-outline">Write Story</a>
       </div>
+    </div>
 
-      <div class="card">
-        <h3>🛒 Essentials Shop</h3>
-        <p>Request subsidized essential items.</p>
-        <a href="/shop/" class="btn">Request Items</a>
+    <div class="dashboard-card" data-aos="fade-up">
+      <div class="card-icon shop-icon">
+        <i class="bi bi-shop-window"></i>
       </div>
+      <h3>Aboni Haven Shop</h3>
+      <p>Browse and request Aboni Haven items.</p>
+      <a href="{% url 'shop' %}" class="btn btn-primary">View Shop</a>
+    </div>
 
-      <div class="card">
-        <h3>🔔 Notifications</h3>
-        <p>You’ll see updates about your requests here.</p>
-        <a href="/notifications/" class="btn">View Notifications</a>
+    <div class="dashboard-card" data-aos="fade-up">
+      <div class="card-icon notifications-icon">
+        <i class="bi bi-bell-fill"></i>
       </div>
-
+      <h3>Notifications</h3>
+      <p>View updates about your requests.</p>
+      <a href="{% url 'notifications' %}" class="btn btn-primary">View Notifications</a>
     </div>
 
   </div>
+
 </section>
 
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* =========================================
+     DASHBOARD STYLES - Aboni Haven Brand
+     ========================================= */
+  :root {
+    --aboni-green: #5A8F3E;
+    --aboni-green-dark: #4A7A32;
+    --aboni-green-light: #7AAF5A;
+    --aboni-green-soft: #E8F5E0;
+    --aboni-green-pale: #F5FBF2;
+    --haven-orange: #E67E22;
+    --haven-orange-dark: #D35400;
+    --haven-orange-light: #F39C12;
+    --haven-orange-soft: #FEF5E7;
+    --text-dark: #2C3E50;
+    --text-muted: #6C757D;
+    --bg-soft: #F5FBF2;
+    --white: #FFFFFF;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .dashboard-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Dashboard Header */
+  .dashboard-header {
+    margin-bottom: 2rem;
+  }
+
+  .dashboard-header h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-dark);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+
+  /* Section Title */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* =========================================
+     USER PROFILE SUMMARY CARD
+     ========================================= */
+  .profile-summary-card {
+    background: linear-gradient(135deg, var(--aboni-green) 0%, var(--aboni-green-dark) 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .profile-avatar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: white;
+    color: var(--aboni-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .profile-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .profile-info p {
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+  }
+
+  .member-since {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .profile-stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .profile-stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  /* =========================================
+     QUICK ACTIONS
+     ========================================= */
+  .quick-actions {
+    margin-bottom: 2rem;
+  }
+
+  .quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .quick-action-btn {
+    background: white;
+    border: 2px solid var(--aboni-green-soft);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .quick-action-btn:hover {
+    border-color: var(--haven-orange);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    color: var(--text-dark);
+  }
+
+  .action-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--aboni-green-pale);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aboni-green);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .quick-action-btn:hover .action-icon {
+    background: var(--haven-orange-soft);
+    color: var(--haven-orange);
+  }
+
+  .quick-action-btn span {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* =========================================
+     DASHBOARD STATS
+     ========================================= */
+  .dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--aboni-green-soft);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--aboni-green);
+  }
+
+  .stat-card h3 {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-card span {
+    color: var(--aboni-green);
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* =========================================
+     UPCOMING SESSION CARD
+     ========================================= */
+  .upcoming-session-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    border-left: 5px solid var(--haven-orange);
+  }
+
+  .upcoming-session-card.empty {
+    border-left-color: var(--aboni-green);
+    text-align: center;
+  }
+
+  .session-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .session-header i {
+    font-size: 2rem;
+    color: var(--haven-orange);
+  }
+
+  .upcoming-session-card.empty .session-header i {
+    color: var(--aboni-green);
+  }
+
+  .session-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-dark);
+    margin: 0;
+  }
+
+  .session-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .session-info p {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .session-info i {
+    color: var(--aboni-green);
+  }
+
+  .session-date {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark) !important;
+  }
+
+  .session-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-join {
+    background: var(--haven-orange);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .btn-join:hover {
+    background: var(--haven-orange-dark);
+    transform: translateY(-2px);
+    color: white;
+  }
+
+  .btn-reschedule {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid var(--text-muted);
+    transition: all 0.3s ease;
+  }
+
+  .btn-reschedule:hover {
+    border-color: var(--aboni-green);
+    color: var(--aboni-green);
+  }
+
+  /* =========================================
+     RECENT ACTIVITY
+     ========================================= */
+  .recent-activity {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--aboni-green-pale);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .activity-item:hover {
+    background: var(--haven-orange-soft);
+    transform: translateX(5px);
+  }
+
+  .activity-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .icon-session { background: var(--aboni-green-soft); color: var(--aboni-green); }
+  .icon-story { background: #E3F2FD; color: #1976D2; }
+  .icon-shop { background: var(--haven-orange-soft); color: var(--haven-orange); }
+  .icon-general { background: #F3E5F5; color: #7B1FA2; }
+
+  .activity-content {
+    flex-grow: 1;
+  }
+
+  .activity-text {
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+
+  .activity-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .activity-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+  }
+
+  .activity-empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--aboni-green-light);
+  }
+
+  .view-all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--aboni-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: gap 0.3s ease;
+  }
+
+  .view-all-link:hover {
+    gap: 0.75rem;
+    color: var(--haven-orange);
+  }
+
+  /* =========================================
+     DASHBOARD GRID CARDS
+     ========================================= */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--aboni-green-soft);
+  }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .counseling-icon { background: var(--aboni-green-soft); color: var(--aboni-green); }
+  .stories-icon { background: #E3F2FD; color: #1976D2; }
+  .shop-icon { background: var(--haven-orange-soft); color: var(--haven-orange); }
+  .notifications-icon { background: #F3E5F5; color: #7B1FA2; }
+
+  .dashboard-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .dashboard-card p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    line-height: 1.6;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--aboni-green);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--aboni-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(90, 143, 62, 0.3);
+    color: white;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--aboni-green);
+    border: 2px solid var(--aboni-green);
+  }
+
+  .btn-outline:hover {
+    background: var(--aboni-green);
+    color: white;
+  }
+
+  /* =========================================
+     RESPONSIVE DESIGN
+     ========================================= */
+  @media (max-width: 768px) {
+    .dashboard-page {
+      padding: 1rem;
+    }
+
+    .profile-summary-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .profile-stats {
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .session-details {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .session-actions {
+      width: 100%;
+    }
+
+    .btn-join, .btn-reschedule {
+      flex: 1;
+      text-align: center;
+    }
+
+    .quick-actions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Animate stats counting
+  const statCards = document.querySelectorAll('.stat-card span');
+  
+  const animateValue = (element, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      element.innerHTML = Math.floor(progress * (end - start) + start);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  // Trigger animation when stats are in view
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = parseInt(entry.target.innerText) || 0;
+        if (target > 0) {
+          animateValue(entry.target, 0, target, 1000);
+        }
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  });
+
+  statCards.forEach(card => statsObserver.observe(card));
+</script>
 {% endblock %}
