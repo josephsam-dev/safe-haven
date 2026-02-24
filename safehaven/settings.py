@@ -62,7 +62,7 @@ MIDDLEWARE = [
 # -------------------------------------------------
 # URLs
 # -------------------------------------------------
-ROOT_URLCONF = 'safe_haven.urls'
+ROOT_URLCONF = 'safehaven.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +83,7 @@ TEMPLATES = [
 # -------------------------------------------------
 # WSGI
 # -------------------------------------------------
-WSGI_APPLICATION = 'safe_haven.wsgi.application'
+WSGI_APPLICATION = 'safehaven.wsgi.application'
 
 # -------------------------------------------------
 # Database
