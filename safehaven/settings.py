@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -------------------------------------------------
 SECRET_KEY = 'dev-secret-key-change-in-production'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # -------------------------------------------------
 # Installed apps
@@ -61,7 +61,7 @@ MIDDLEWARE = [
 # -------------------------------------------------
 # URLs
 # -------------------------------------------------
-ROOT_URLCONF = 'safehaven.urls'
+ROOT_URLCONF = 'safe_haven.urls'
 
 TEMPLATES = [
     {
@@ -82,7 +82,7 @@ TEMPLATES = [
 # -------------------------------------------------
 # WSGI
 # -------------------------------------------------
-WSGI_APPLICATION = 'safehaven.wsgi.application'
+WSGI_APPLICATION = 'safe_haven.wsgi.application'
 
 # -------------------------------------------------
 # Database
