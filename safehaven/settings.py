@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 # -------------------------------------------------
 SECRET_KEY = 'dev-secret-key-change-in-production'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['abonihaven-ng.onrender.com', 'localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://abonihaven-ng.onrender.com']
